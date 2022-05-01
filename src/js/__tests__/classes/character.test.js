@@ -65,10 +65,16 @@ test('succesful lvlup', () => {
   person._health = 15;
   person.levelUp();
 
-  expect(person.level).toBe(2);
-  expect(person.attack).toBeCloseTo(12);
-  expect(person.defense).toBeCloseTo(12);
-  expect(person.health).toBeCloseTo(100);
+  const expected = {
+    _level: 2,
+    _health: 100,
+    _attack: 12,
+    _defense: 12,
+    _name: 'npc',
+    _type: 'Character',
+  };
+
+  expect(expected).toEqual(person);
 });
 
 test('damage', () => {
@@ -78,4 +84,15 @@ test('damage', () => {
   person.damage(points);
 
   expect(person.health).toBeCloseTo(100 - points * (1 - person.defense / 100));
+});
+
+test('getter tests', () => {
+  const person = new Character('npc', 'Character', 10, 15);
+
+  expect(person.attack).toBeCloseTo(10);
+  expect(person.defense).toBeCloseTo(15);
+  expect(person.name).toBe('npc');
+  expect(person.type).toBe('Character');
+  expect(person.level).toBe(1);
+  expect(person.health).toBeCloseTo(100);
 });
